@@ -25,14 +25,26 @@ public class CountingGame
         System.out.println("Constructing list of players");
         
         // ADD CODE HERE TO CREATE THE LIST OF PLAYERS
+        players = new AList<Integer>();
+        
+        for(int i = 1; i <= max; i++) {
+        	players.add(i);
+        }
+        
         
         System.out.println("The players list is " + players);
-        
+        int rNo = 1;
         rhyme = getRhyme();
-
+        while(players.getLength() > 1) {
+        	System.out.println("\nRound "+rNo+":\n");
+        	position = doRhyme(players,rhyme,position);
+        	rNo++;
+        }
+        
         // ADD CODE HERE TO PLAY THE GAME
         
         System.out.println("The winner is " + players.getEntry(1));
+        //System.out.println("The players list is " + players);
     }
     
     
@@ -48,8 +60,19 @@ public class CountingGame
      */
    public static int doRhyme(ListInterface<Integer> players, ListInterface<String> rhyme, int startAt)
     {
+	   int toBeRemoved = startAt;
+	   for(int i = 1, j = startAt; i <= rhyme.getLength(); i++,j++ ) {
+		   if(j > players.getLength())
+			   j = 1;
+		   System.out.println(rhyme.getEntry(i) + " : Player "+players.getEntry(j));
+		   toBeRemoved = j;
+		   
+	   }
+	   System.out.println("Removing Player "+players.getEntry(toBeRemoved));
+	   players.remove(toBeRemoved);
+	   
         // COMPLETE THIS METHOD
-        return -1;
+        return toBeRemoved;
 
      }
     
